@@ -8,11 +8,15 @@
 
 This program is a minimal usage example of `blx.js` and `blstore.js`. For the easiest possible use, the compacted versions of the scripts are utilized. The current versions can be obtained from `blxdash/dist/...`. Upon request, the scripts are also available in source code form.
 
-It is recommended to use/develop with this software under VS Code with the "Live Server" extension (Ritwick Dey).
+This demo contains the 'essentials' of the [BlxDashboard](https://github.com/joembedded/ltx_ble_demo).
+
+> It is recommended to use/develop with this software under VS Code with >the "Live Server" extension (Ritwick Dey).
 
 ## Usage
 
 Using the command line interface, you can connect to LTX devices or OSX nodes via BLE (provided the browser supports Bluetooth Web API). 
+
+> All BLX commands are listed in Docu/blx_commands.txt (but the device or sensor has a bunch of additionals comands too).
 
 ### Connecting to a Device
 
@@ -36,7 +40,7 @@ The PIN will then be automatically saved in the browser's IndexDB (by `blstore.j
 
 ## Requirements
 
-- A browser with Bluetooth Web API support
+- A browser with Bluetooth Web API support or (e.g. for iOS a 'Sandbox' with BLE Web API wrapper)
 - HTTPS connection (required for Web Bluetooth API)
 
 ## Files
@@ -44,4 +48,5 @@ The PIN will then be automatically saved in the browser's IndexDB (by `blstore.j
 - `blx.js` - BLE communication library
 - `blstore.js` - IndexedDB storage library
 - `index.html` - Main application interface
-  **
+    
+  ***
