@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlxMinimal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        h1 {
+            color: dodgerblue;
+        }
+
+        .info {
+            background-color: lightgrey;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>BlxMinimal</h1>
+
+    <div class="info"><b>Minimalistic use of 'blx.js' and 'blstore.js'</b></div>
+    <h6 style="margin-top: 5px; margin-bottom: 5px;">BlxTerminal:</h6>
+    <div id="blxTerminal" style="border: 1px solid gray; padding: 10px; border-radius: 5px;"></div>
+    <h6 style="margin-top: 15px; margin-bottom: 5px;">BlxCallbackConsole:</h6>
+    <div id="blxCallbackConsole" style="border: 1px solid dodgerblue; padding: 10px; border-radius: 5px;"></div>
+    <script type="module">
+
+        import './js/blx.js'
+        import './js/blStore.js'
+
+        //import {blx} from './js/blx.js'
+
+        const VERSION = 'V0.01 / 28.10.2025'
+        const COPYRIGHT = '(C)JoEmbedded.de'
+
+        document.querySelector('.info').innerHTML += `<br>${VERSION} - ${COPYRIGHT}`;
+
+        const maxConsoleLines = 20;
+        let totalCount = 1;
+        let consoleLines = [];
+
+        // This callback receives messages from blx.js - Callback  m:Message, v:Value, xinfo:Text
+        function bleCallback(m, v, xinfo) {
+            let output = '';
+            switch (m) {
+                case 'CON':
+                    output = "CON-Level: " + v;
+                    break;
+                case 'RSSI':
+                    output = `RSSI: ${v} dBm`;
+                    break;
+                case 'INFO':
+                    output = "INFO: " + xinfo;
+                    break;
+                case 'MSG':
+                    output = "MSG " + v + ": " + xinfo;
+                    break;
+                case 'WARN':
+                    output = "WARNING " + v + ": " + xinfo;
+                    break;
+                case 'ERR':
+                    output = "ERROR " + v + ": " + xinfo;
+                    break;
+                default:
+                    output = "BLX: " + m + v + xinfo;
+            }
+            console.log(output); // Log to console
+            consoleLines.push(`${totalCount++}: ${output}`); // Add to console display
+            if (consoleLines.length > maxConsoleLines) {
+                consoleLines.shift();
+            }
+            document.getElementById('blxCallbackConsole').innerHTML = consoleLines.join('<br>');
+        }
+
+        // *** Setup ***
+        blx.setTerminal('blxTerminal', bleCallback)
+        const terminalInput = blx.terminalGetInput()
+
+    </script>
+</body>
+
+</html>

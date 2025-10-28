@@ -1,0 +1,181 @@
+BLX.JS, BlueWorker.cs and BLSTORE.JS
+====================================
+(C) JoEmbedded.de - 28.10.2025
+
+This document describes the basic commands for the worker that communicates via Bluetooth.
+
+BLX: Commands for Terminal (enable Terminal with blx.setTerminal("blxTerminal", bleCallback)),
+where "blxTerminal" is an empty <div>, see ble_api/index.html
+
+WIN: Commands in BlueWorker.cs
+
+There are 2 types of commands. Commands starting with '.' are interpreted by BLX ('SysCommands'), 
+others are directly sent via BLE to the device (see 'ltx_ble.c'). Of course, some commands can be 
+entered in multiple ways, like "Reset" and ".reset". (Remark: "*" repeats last command (only in Terminal)).
+
+SysCommands (from 'blx.js' -> async function blxSysCmd(cmd)):
+--------------------------------------------------------------
+.?
+	Display Version
+
+.q
+.quit 
+	BLX: Hide Terminal
+	
+.cls
+	BLX: Clear Terminal
+	
+.s
+.store
+	Store Commands (device data stored in indexedDB as Key/Value-Pairs)
+	If KEY is empty: use last filename from '.get' as KEY
+	
+	(No Parameter): List Store (Keys, date, Length)
+
+	v / var : Set or display system variables (not possible with system objects). Clear with c / clear
+		(example: '.s v #blxDash_#badgeURL http://localhost/LtxLabels/badge.html' sets the URL for badges to a local path)
+		(example: '.s v #blxDash_#badgeURL' Shows Badge-URL)
+		(example: '.s v #blxDash_#AutoPINURL https://joembedded.de/x3/sec/gen_pin.php?k=Leg1310LX' sets AutoPin)
+
+	c / clear : Clear complete indexDB
+
+	r / remove [KEY]: Remove Key
+		(example: '.s r F65F6C3B7F1527C1_sys_param.lxp')
+		
+	l / list [KEY]: List as Text-Lines (Idx: Text) *** Only for Files (Textfiles) from Devices ***
+		(fast show contents of text files: example: '.s l F65F6C3B7F1527C1_sys_param.lxp')
+
+	m / modify Idx NewText [KEY]: Modify Text-Line Idx to NewText (No Spaces allowed) *** Only for Files (Textfiles) from Devices ***
+		(this is an easy command to modify data in the indexDB, 
+		example: '.s m 18 999 F65F6C3B7F1527C1_sys_param.lxp')
+		
+.e [KEY]
+.export [KEY]
+	If KEY is empty: use last filename from '.get' as KEY
+	Export Key as file (= "Download" in Browser)
+	
+.a [[RSSI] TERM]
+.audio [[RSSI] TERM]
+	List/Set audio flags RSSI and TERM: (set as 0/1):
+	RSSI: If 1: Play sound each RSSI packet (low/higher sound: device is farther/nearer)
+	TERM: If 0: Terminal is silent
+	
+.f [[[frq] [dur]] vol]
+	Play a sound, Frequency frq (Hz), with dur secs (0..), volume (0..10)
+	Example: .f 440 2 5
+	
+.k [CONT]
+.keep [CONT]
+	Normally BLE Connections are terminated after a few minutes, set to keep connection.
+	List/Set connection flag CONT (set as 0/1):
+	
+.rs [SHOW_RSSI]
+	List/Set RSSI listing in terminal (in dBm) (set as 0/1):
+	
+.cf [[VAL_FS] VAL_MEM]
+.connectionfast [[VAL_FS] VAL_MEM]
+	Set/query fast connection speed for file operations and/or memory operations
+	VAL_FS for data transfer, VAL_MEM for internal CPU Flash Speed (slower)
+
+.bslow 
+.bfast
+	Try to set fast/slow connection speed (fast only for ca. 15 sec, then AUTO-Slow)
+
+.l [ANZ]
+.lines [ANZ]
+	Set/query default number of lines in the terminal 
+	
+.sl MSEC
+.sleep MSEC
+	Test command - sleep/wait a number of msec
+	
+.c
+.connect
+	BLX: Show BLE-Connect Window 
+	WIN: Connect last used BleAdr
+
+.d
+.disconnect
+	Disconnect BLE
+
+.r [PIN]
+.reconnect [PIN]
+	Reconnect (previously terminated) BLE Connection, optionally with Access PIN
+
+.i [PIN]
+.identify [PIN]
+	Optionally reconnect (previously terminated) BLE Connection, optionally with Access PIN
+	and identify device
+	
+.m
+.memory
+	Calculate available data memory (only for devices with Filesystem)
+	
+.u
+.upload
+	Upload data.edt/data.edt.old to store, fast speed true by default
+	(only for devices with Filesystem)
+	
+.x [MAC]
+.xtract [MAC]
+	Extract data.edt/data.old for a device to synthesized Key/Value-File in Store
+	(for display with Graph-Tool, only for devices with Filesystem). If MAC is empty:
+	use last/current device.
+	
+.g [..]
+.get [..]
+	(only for devices with Filesystem)
+	Get a file from the device's Filesystem:
+	.g FNAME - All 
+	.g FNAME pos0 - from pos0 (Middle to End)
+	.g FNAME pos0 anz - anz Bytes from pos0 (Only Start of File)
+
+	BLX & WIN OK!
+
+.p [SYNCFLAG]
+.put [SYNCFLAG]
+	(only for devices with Filesystem)
+	Select File and send it to device's Filesystem. If SYNCFLAG set to 1: Set Sync flag in Filesystem
+
+.memput
+	Select File and send it to device's Memory (only for small files, see LTX documentation)    
+
+.fput KEY
+	(only for devices with Filesystem)
+	Send a File from indexDB (KEY) to device's Filesystem
+	
+.del FNAME    
+	(only for devices with Filesystem)
+	Delete FNAME on the device's Filesystem
+
+.firmware
+	(only for devices with Filesystem)
+	Upload a Secured Firmware Image ('.sec') to the device and install it (will terminate BLE connection)
+	
+.reset
+	Reset device (will terminate BLE connection)
+
+.t [set]
+.time [set]
+	Query ('.t') or set ('.t set') RTC on device
+	BLX only
+	WIN: included in ".info"
+
+.devicelist
+	BLX: n.a. (device list stored in IndexDB)
+	WIN: Show DeviceList/Cache
+	
+.crun [URL]
+	Select and execute Command-Line. E.g. for SDI12 setup commands or presets
+	(Lines starting with '//' are comments, Empty Lines ignored)
+	Examples:
+	.crun           - Open File selector
+	.crun URL       - Get Script from there:
+					  .crun http://127.0.0.1:5000/crun/test.crun
+					  .crun http://127.0.0.1:5000/crun/orbcomm_init.crun
+
+.expect
+	Expect a condition (mainly used in crun-Files)
+	Examples:
+	.expect type            - e.g. .expect type 920
+	.expect connected
