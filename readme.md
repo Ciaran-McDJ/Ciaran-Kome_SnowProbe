@@ -2,6 +2,8 @@
 
 ![BlxMinimal Interface](Docu/intro.png)
 
+**Live Demo:** [https://joembedded.github.io/BlxMinimal/](https://joembedded.github.io/BlxMinimal/)
+
 ## Description
 
 This program is a minimal usage example of `blx.js` and `blstore.js`. For the easiest possible use, the compacted versions of the scripts are utilized. The current versions can be obtained from `blxdash/dist/...`. Upon request, the scripts are also available in source code form.
