@@ -10,7 +10,7 @@ This program is a minimal usage example of `blx.js` and `blstore.js`. For the ea
 
 This demo contains the 'essentials' of the [BlxDashboard](https://github.com/joembedded/ltx_ble_demo).
 
-> It is recommended to use/develop with this software under VS Code with >the "Live Server" extension (Ritwick Dey).
+> It is recommended to use/develop with this software under VS Code with the "Live Server" extension (Ritwick Dey).
 
 ## Usage
 
