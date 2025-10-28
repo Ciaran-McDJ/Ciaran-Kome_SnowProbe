@@ -48,5 +48,67 @@ The PIN will then be automatically saved in the browser's IndexDB (by `blstore.j
 - `blx.js` - BLE communication library
 - `blstore.js` - IndexedDB storage library
 - `index.html` - Main application interface
-    
+
+## API Overview
+
+### blstore.js API
+
+- `result()` - Get the result from the last operation
+- `get(key)` - Get a value from the store
+- `set(key, value)` - Set a value in the store
+- `count()` - Get the number of items in the store
+- `iterate(callback, keyRange)` - Iterate over all items in the store
+- `clearStore()` - Clear all items from the store
+- `remove(key)` - Remove a specific item from the store
+- `quotaget()` - Get storage quota information (usedMB, usedPerc)
+
+### blx.js API
+
+#### Callback Messages
+
+The `blxUserCB` callback provides status updates with message types and parameters:
+
+- **CON 0** - Disconnected, not reconnectable
+- **CON 1** - Disconnected, but reconnectable
+- **CON 2** - Connecting, reading IDs (ONLY advertisingName available via `blx.getDevice()`)
+- **CON 3** - Connected
+- **CON 4** - Fully connected (also called after reconnecting, `blx.getDevice()` complete)
+- **PROG** `perc` - Progress in %
+- **UPLOAD** `total` - Full/incremental upload data bytes
+- **GET** `len, fname` - Upload from file
+- **GET_OK** `speed` - Upload OK, bytes/sec
+- **RSSI** `signal` - Signal strength in dBm (< -199 = invalid)
+- **VSENS** `data` - Sensor data (e.g., acceleration: x, y, z)
+- **INFO** `x` - Informational message (x:0 = transfer OK, translatable)
+- **MSG** `type` - Message (0: more info, 1: BLX.JS)
+- **WARN** `type` - Warning (1: Disconnect, 2: Low speed, 3: No file, 4: File error, 5: Retry)
+- **ERR** `type` - Error message
+- **MEAS_CH** `chans` - Measurement channels
+- **MEAS_T** `time` - Time in milliseconds
+- **MEAS_V** `chan` - Measurement value
+- **BZY** `code, param` - Busy code (see 'Z' command)
+- **PPMETA** `text` - Metadata for following PP blocks
+- **RADARPP** `datablock` - ArrayBuffer with raw radar data
+- **RECON** `times` - Reconnection status: `{wait:h reconnect:h2}`
+
+#### Main Functions
+
+- `setTerminal()` - Set terminal element
+- `userSendCmd(inpcmd, cmdtimeout)` - Send command to device
+- `terminalPrint()` - Print to terminal
+- `terminalGetInput()` - Get terminal input
+- `getDevice()` - Get device IDs
+- `getMemory()` - Get memory information
+- `getPinOK()` - Check if PIN is valid
+- `frq_ping()` - Play frequency sound
+- `chordsound()` - Play chord sound
+- `getCrc32()` - Calculate CRC32
+- `IparamAddChannel()` - Add channel to parameters
+- `CompactIparam()` - Compact parameter array
+- `IparamValidate()` - Validate input parameters
+- `SysParamValidate()` - Validate system parameters
+- `getTry2Connect()` - Check if trying to connect
+- `stopTry2Connect()` - Stop connection attempt
+- `getBrowserName()` - Get browser name
+
   ***
