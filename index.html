@@ -27,13 +27,14 @@
 </head>
 
 <body>
-    <h1>BlxMinimal</h1>
+    <h1>Testing Messing with BlxMinimal GUI</h1>
 
     <div class="info"><b>Minimalistic use of 'blx.js' and 'blstore.js'</b></div>
     <h6 style="margin-top: 5px; margin-bottom: 5px;">BlxTerminal:</h6>
     <div id="blxTerminal" style="border: 1px solid gray; padding: 10px; border-radius: 5px;"></div>
     <h6 style="margin-top: 15px; margin-bottom: 5px;">BlxCallbackConsole:</h6>
     <div id="blxCallbackConsole" style="border: 1px solid dodgerblue; padding: 10px; border-radius: 5px;"></div>
+    <button id="myTestButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Test Button</button>
     <script type="module">
 
         import './js/blx.js'
@@ -87,6 +88,19 @@
         blx.setTerminal('blxTerminal', bleCallback)
         const terminalInput = blx.terminalGetInput()
 
+    </script>
+    <script>
+        // Ciaran's test script
+        console.log("Ciaran's Test JS code is running on program start");
+
+        function testButtonCallback() {
+            console.log("Button was pressed!");
+            tempVar = blx.userSendCmd(".c")
+            console.log(tempVar)
+        }
+
+        let testButton = document.getElementById("myTestButton");
+        testButton.addEventListener("click", testButtonCallback);
     </script>
 </body>
 
