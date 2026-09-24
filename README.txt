@@ -15,6 +15,7 @@ For now, testing is done on a computer using the "Live Server" VSCode extension,
 
 
 
+
 Notes for documentation we need to make:
 - Explain how to enable bluetooth on most browsers, or list what browsers are supported
 
