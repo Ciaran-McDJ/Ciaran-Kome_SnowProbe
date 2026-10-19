@@ -89,14 +89,42 @@
         const terminalInput = blx.terminalGetInput()
 
     </script>
-    <script>
+    <script type = "module">
         // Ciaran's test script
         console.log("Ciaran's Test JS code is running on program start");
 
+        var i = 1;
+
+        import {myTestConfig} from "./js/ciaranTryingThings.js"
+
+        
+
         function testButtonCallback() {
+            i += 1
             console.log("Button was pressed!");
-            tempVar = blx.userSendCmd(".c")
-            console.log(tempVar)
+            // tempVar = blx.userSendCmd(".c")
+            // tempVar = blx.terminalPrint("Ciaran TEST of terminalPrint()")
+            // tempVar = blx.terminalGetInput("Ciaran TEST of terminalGetInput()") // Not sure how this one works
+            let browsername = blx.getBrowserName()
+            let quota = blStore.quotaget()
+            let count = blStore.count()
+            let tempVar = blStore.set("MyTestKey", i)
+            let tempVar2 = blStore.get("MyTestKey")
+            let result = blStore.result()
+            setTimeout(2000)
+            console.log("i:", i)
+            console.log(myTestConfig.a)
+            // myTestConfig.a = 2
+            myTestConfig.myTestFunc()
+
+            console.log(myTestConfig.a)
+            // console.log("myTestFunc", myTest(i))
+            // console.log("browsername:", browsername)
+            // console.log("quota:", quota)
+            // console.log("count", count)
+            // console.log(tempVar)
+            // console.log(tempVar2)
+            // console.log("result", result)
         }
 
         let testButton = document.getElementById("myTestButton");
