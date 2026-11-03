@@ -35,6 +35,7 @@
     <h6 style="margin-top: 15px; margin-bottom: 5px;">BlxCallbackConsole:</h6>
     <div id="blxCallbackConsole" style="border: 1px solid dodgerblue; padding: 10px; border-radius: 5px;"></div>
     <button id="myTestButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Test Button</button>
+    
     <script type="module">
 
         import './js/blx.js'
@@ -105,26 +106,31 @@
             // tempVar = blx.userSendCmd(".c")
             // tempVar = blx.terminalPrint("Ciaran TEST of terminalPrint()")
             // tempVar = blx.terminalGetInput("Ciaran TEST of terminalGetInput()") // Not sure how this one works
-            let browsername = blx.getBrowserName()
+            // let browsername = blx.getBrowserName()
             let quota = blStore.quotaget()
             let count = blStore.count()
-            let tempVar = blStore.set("MyTestKey", i)
-            let tempVar2 = blStore.get("MyTestKey")
+            let blStore_set = blStore.set("MyTestKey", i)
+            // let blStore_get = blStore.get("MyTestKey")
+            // await blStore.get("MyTestKey")
             let result = blStore.result()
-            setTimeout(2000)
-            console.log("i:", i)
-            console.log(myTestConfig.a)
+            // setTimeout(2000) //Don't remember what I was doing with this one
+            // console.log("i:", i)
+            // console.log(myTestConfig.a)
             // myTestConfig.a = 2
             myTestConfig.myTestFunc()
+            
+            // alert("My test alert")
+            // let promptResponse = prompt("this is a test prompt", "default response")
+            // console.log("prompt response:", promptResponse)
 
-            console.log(myTestConfig.a)
+            // console.log(myTestConfig.a)
             // console.log("myTestFunc", myTest(i))
             // console.log("browsername:", browsername)
             // console.log("quota:", quota)
             // console.log("count", count)
-            // console.log(tempVar)
-            // console.log(tempVar2)
-            // console.log("result", result)
+            console.log("blStore.set", blStore_set)
+            console.log("blStore.get", blStore_get)
+            console.log("result", result)
         }
 
         let testButton = document.getElementById("myTestButton");
