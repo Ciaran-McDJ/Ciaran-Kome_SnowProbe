@@ -34,6 +34,11 @@
     <div id="blxTerminal" style="border: 1px solid gray; padding: 10px; border-radius: 5px;"></div>
     <h6 style="margin-top: 15px; margin-bottom: 5px;">BlxCallbackConsole:</h6>
     <div id="blxCallbackConsole" style="border: 1px solid dodgerblue; padding: 10px; border-radius: 5px;"></div>
+    
+    <!-- Buttons for testing -->
+    <button id="myTestButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Test Button</button>
+    <button id="myMeasureButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Measure Button</button>
+
     <script type="module">
 
         import './js/blx.js'
@@ -86,6 +91,50 @@
         // *** Setup ***
         blx.setTerminal('blxTerminal', bleCallback)
         const terminalInput = blx.terminalGetInput()
+
+    </script>
+
+    <script type="module">
+        // SCRIPT FOR TESTING THINGS TEMPORARILY
+        console.log("Ciaran's Test JS code is running on program start");
+
+        import {myTestConfig} from "./js/config.js"
+
+        let i = 0;
+
+        
+
+        async function testButtonCallback() {
+            i += 1;
+            console.log("Test Button was pressed!");
+            let blStore_set = blStore.set("MyTestKey", i)
+            let blStore_get = blStore.get("MyTestKey").then(() => console.log("resultFromPromise.then()", blStore.result()))
+            let result = blStore.result()
+            
+            // These print nothign useful
+            // console.log("blStore.set", blStore_set)
+            // console.log("blStore.get", blStore_get)
+            // console.log("result", result)
+        }
+
+
+        let testButton = document.getElementById("myTestButton");
+        testButton.addEventListener("click", testButtonCallback);
+
+
+        async function delay(t = 1) { //This is in miliseconds - TODO - look up typical docscring syntax for js
+            return new Promise(e => setTimeout(e, t));
+        }
+
+        async function measureButtonCallback() {
+            console.log("Measure Button was pressed!");
+
+            // Not doing anything for right now
+        }
+
+        let measureButton = document.getElementById("myMeasureButton");
+        measureButton.addEventListener("click", measureButtonCallback);
+
 
     </script>
 </body>
