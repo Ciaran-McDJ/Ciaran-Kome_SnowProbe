@@ -35,7 +35,8 @@
     <h6 style="margin-top: 15px; margin-bottom: 5px;">BlxCallbackConsole:</h6>
     <div id="blxCallbackConsole" style="border: 1px solid dodgerblue; padding: 10px; border-radius: 5px;"></div>
     <button id="myTestButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Test Button</button>
-    
+    <button id="myMeasureButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Measure Button</button>
+
     <script type="module">
 
         import './js/blx.js'
@@ -100,17 +101,17 @@
 
         
 
-        function testButtonCallback() {
+        async function testButtonCallback() {
             i += 1
             console.log("Button was pressed!");
             // tempVar = blx.userSendCmd(".c")
             // tempVar = blx.terminalPrint("Ciaran TEST of terminalPrint()")
-            // tempVar = blx.terminalGetInput("Ciaran TEST of terminalGetInput()") // Not sure how this one works
+            let tempVar = blx.terminalGetInput(); // Not sure how this one works
             // let browsername = blx.getBrowserName()
-            let quota = blStore.quotaget()
-            let count = blStore.count()
+            // let quota = blStore.quotaget()
+            // let count = blStore.count()
             let blStore_set = blStore.set("MyTestKey", i)
-            // let blStore_get = blStore.get("MyTestKey")
+            let blStore_get = blStore.get("MyTestKey").then(() => console.log("resultFromPromise.then()", blStore.result()))
             // await blStore.get("MyTestKey")
             let result = blStore.result()
             // setTimeout(2000) //Don't remember what I was doing with this one
@@ -124,17 +125,104 @@
             // console.log("prompt response:", promptResponse)
 
             // console.log(myTestConfig.a)
+            console.log("tempVar:", tempVar.value);
             // console.log("myTestFunc", myTest(i))
             // console.log("browsername:", browsername)
             // console.log("quota:", quota)
             // console.log("count", count)
-            console.log("blStore.set", blStore_set)
-            console.log("blStore.get", blStore_get)
-            console.log("result", result)
+            // console.log("blStore.set", blStore_set)
+            // console.log("blStore.get", blStore_get)
+            // console.log("result", result)
+
+
+            // STOLEN FROM GRACE CODE. Should move this elsewhere, just testing it for right now
+            function getPositionPromise(options = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }) {
+                return new Promise((resolve, reject) => {
+                    if (!navigator.geolocation) return reject(new Error("Geolocation not supported"));
+                    navigator.geolocation.getCurrentPosition(
+                        p => resolve({
+                            latitude: p.coords.latitude,
+                            longitude: p.coords.longitude,
+                            accuracy: p.coords.accuracy,
+                            altitude: p.coords.altitude,
+                            altitudeAccuracy: p.coords.altitudeAccuracy,
+                            heading: p.coords.heading,
+                            speed: p.coords.speed,
+                            timestamp: p.timestamp
+                        }),
+                        err => reject(err),
+                        options
+                    );
+                });
+            }
+
+            // let location;
+            // getPositionPromise().then(value => console.log("location: ", value))
+
+            let location;
+            try {location = await getPositionPromise();} catch (err) { location = { error: err && err.message ? err.message : String(err) };}
+            console.log("location:", location)
         }
+
 
         let testButton = document.getElementById("myTestButton");
         testButton.addEventListener("click", testButtonCallback);
+
+
+
+        // MEASURING BUTTON TEST
+        async function delay(t = 1) { //This is in miliseconds - TODO - look up typical docscring syntax for js
+            return new Promise(e => setTimeout(e, t));
+        }
+
+        async function measureButtonCallback() {
+            
+            console.log("Measure Button was pressed!");
+            
+
+            // STOLEN FROM GRACE CODE. Should move this elsewhere, just testing it for right now
+            function getPositionPromise(options = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }) {
+                return new Promise((resolve, reject) => {
+                    if (!navigator.geolocation) return reject(new Error("Geolocation not supported"));
+                    navigator.geolocation.getCurrentPosition(
+                        p => resolve({
+                            latitude: p.coords.latitude,
+                            longitude: p.coords.longitude,
+                            accuracy: p.coords.accuracy,
+                            altitude: p.coords.altitude,
+                            altitudeAccuracy: p.coords.altitudeAccuracy,
+                            heading: p.coords.heading,
+                            speed: p.coords.speed,
+                            timestamp: p.timestamp
+                        }),
+                        err => reject(err),
+                        options
+                    );
+                });
+            }
+
+            let numberOfSamples = 5;
+            let delayBetweenSamples_ms = 2000;
+
+            for (let i = 0; i<5; i++)  {
+                console.log("i:", i)
+                let delayPromise = delay(delayBetweenSamples_ms);
+                
+                // Do a measurement
+                blx.userSendCmd(".c")
+
+                // let location;
+                // try {location = await getPositionPromise();} catch (err) { location = { error: err && err.message ? err.message : String(err) };}
+                // console.log("location:", location)
+
+                await delayPromise;
+            }
+        }
+
+        let measureButton = document.getElementById("myMeasureButton");
+        measureButton.addEventListener("click", measureButtonCallback);
+
+
     </script>
 </body>
 
