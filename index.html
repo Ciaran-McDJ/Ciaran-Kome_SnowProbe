@@ -38,6 +38,7 @@
 
         import './js/blx.js'
         import './js/blStore.js'
+        import './Ciaran_Kome_code/ble_command.js';
 
         //import {blx} from './js/blx.js'
 
@@ -88,6 +89,17 @@
         const terminalInput = blx.terminalGetInput()
 
     </script>
+    <div id="ble-test">
+
+    <h3>BLE Button</h3>
+
+    <button id="ble-connect">Connect</button>
+    <button id="ble-disconnect">Disconnect</button>
+
+    <p id="ble-status">Not connected</p>
+    <p id="ble-events">Waiting for button press...</p>
+
+    </div>
 </body>
 
 </html>
