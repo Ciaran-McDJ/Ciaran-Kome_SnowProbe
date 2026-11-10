@@ -38,6 +38,7 @@
     <!-- Buttons for testing -->
     <button id="myTestButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Test Button</button>
     <button id="myMeasureButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Measure Button</button>
+    <button id="optionalButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Optional Button</button>
 
     <script type="module">
 
@@ -111,8 +112,6 @@
             
             myTestConfig.set_x(i)
 
-
-
             // let blStore_set = blStore.set("MyTestKey", i)
             // let blStore_get = blStore.get("MyTestKey").then(() => console.log("resultFromPromise.then()", blStore.result()))
             // let result = blStore.result()
@@ -123,14 +122,10 @@
             // console.log("result", result)
         }
 
-
         let testButton = document.getElementById("myTestButton");
         testButton.addEventListener("click", testButtonCallback);
 
 
-        async function delay(t = 1) { //This is in miliseconds - TODO - look up typical docscring syntax for js
-            return new Promise(e => setTimeout(e, t));
-        }
 
         async function measureButtonCallback() {
             console.log("Measure Button was pressed!");
@@ -143,6 +138,14 @@
 
         let measureButton = document.getElementById("myMeasureButton");
         measureButton.addEventListener("click", measureButtonCallback);
+
+
+        async function optionalButtonCallback() {
+            console.log("Optional Button was pressed!")
+        }
+
+        let optionalButton = document.getElementById("optionalButton");
+        optionalButton.addEventListener("click", optionalButtonCallback);
 
 
     </script>

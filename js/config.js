@@ -20,13 +20,13 @@ export const myTestConfig = {
     _x: 1,
     // TODO - add what type x should be and some condition to throw error (acceptable range)
     get_x: function() {
-        console.log("debug config.js: getting x, ", this._x);
+        // console.log("debug config.js: getting x, ", this._x);
         return this._x;
     },
     set_x: async function(x) {
         this._x = x;
         this.storeConfigVarInStore("_x", x);
-        console.log("debug config.js: set x to ", x);
+        // console.log("debug config.js: set x to ", x);
     },
     a: 0,
     myTestFunc: function() {
@@ -38,7 +38,6 @@ export const myTestConfig = {
         // Run at start of program to see if non-default config values stored in indexedDB, if so it gets them and stores them in the config
 
         for (let configVarName of ["_x"]) {
-            console.log("configVarName:", configVarName);
             let getterFuncName = "get"+configVarName;
             let setterFuncName = "set"+configVarName;
             let configKey_str = "config"+configVarName;
@@ -51,7 +50,7 @@ export const myTestConfig = {
             if (storeResult == undefined) {
                 // I believe this is the only option for how this could fail
                 // TODO - what if blStore doesn't exist? Should check what error checking Jo's code does for this sort of thing and make sure this is good
-                console.log("ERROR in config.js -> initConfig(). The storeResult was undefined. Should check what case this is and do proper error checking. This is for the configVarName:", configVarName);
+                console.log("WARNING in config.js -> initConfig(). The storeResult was undefined, so the config is using its default. This is probably fine and intended, I need to add better error checking. This is for the configVarName:", configVarName);
             } else {
                 if (storeResult.v != this[getterFuncName]()) {
                     // storeResult has something other than the default, we should use what is in the store
