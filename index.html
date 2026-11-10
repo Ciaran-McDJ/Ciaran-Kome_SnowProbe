@@ -99,6 +99,7 @@
         console.log("Ciaran's Test JS code is running on program start");
 
         import {myTestConfig} from "./js/config.js"
+        myTestConfig.initConfig();
 
         let i = 0;
 
@@ -107,9 +108,14 @@
         async function testButtonCallback() {
             i += 1;
             console.log("Test Button was pressed!");
-            let blStore_set = blStore.set("MyTestKey", i)
-            let blStore_get = blStore.get("MyTestKey").then(() => console.log("resultFromPromise.then()", blStore.result()))
-            let result = blStore.result()
+            
+            myTestConfig.set_x(i)
+
+
+
+            // let blStore_set = blStore.set("MyTestKey", i)
+            // let blStore_get = blStore.get("MyTestKey").then(() => console.log("resultFromPromise.then()", blStore.result()))
+            // let result = blStore.result()
             
             // These print nothign useful
             // console.log("blStore.set", blStore_set)
@@ -128,6 +134,9 @@
 
         async function measureButtonCallback() {
             console.log("Measure Button was pressed!");
+
+            let theXInQuestion = myTestConfig.get_x()
+            console.log("in index.html we got that x is: ", theXInQuestion)
 
             // Not doing anything for right now
         }
