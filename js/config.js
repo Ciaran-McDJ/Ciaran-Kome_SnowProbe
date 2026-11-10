@@ -8,7 +8,6 @@ export function myTest(a) {
 }
 
 
-
 // TODO - describe somewhere (here or a README?) the process for adding a new variable to the config
     // Add variable name with _
     // Add getter and setter (IMPORTANT: Must have same name as variable, just with 'get' and 'set' added)
@@ -19,13 +18,14 @@ export function myTest(a) {
 // TODO - look up proper docstring formatting for all of this
 export const myTestConfig = {
     _x: 1,
+    // TODO - add what type x should be and some condition to throw error (acceptable range)
     get_x: function() {
         console.log("debug config.js: getting x, ", this._x);
         return this._x;
     },
     set_x: async function(x) {
         this._x = x;
-        blStore.set("config_x", x); //TODO - error checking? How do we know if this succeeded?
+        this.storeConfigVarInStore("_x", x);
         console.log("debug config.js: set x to ", x);
     },
     a: 0,
@@ -37,24 +37,34 @@ export const myTestConfig = {
     initConfig: async function() {
         // Run at start of program to see if non-default config values stored in indexedDB, if so it gets them and stores them in the config
 
-        for (let configName in ["_x"]) {
+        for (let configVarName of ["_x"]) {
+            console.log("configVarName:", configVarName);
+            let getterFuncName = "get"+configVarName;
+            let setterFuncName = "set"+configVarName;
+            let configKey_str = "config"+configVarName;
             
             let storeResult;
-            await blStore.get("config_x");
+            await blStore.get(configKey_str);
             storeResult = blStore.result();
             console.log("debug config.js: storeResult: ", storeResult);
 
             if (storeResult == undefined) {
                 // I believe this is the only option for how this could fail
                 // TODO - what if blStore doesn't exist? Should check what error checking Jo's code does for this sort of thing and make sure this is good
-                console.log("ERROR in config.js -> initConfig(). The storeResult was undefined. Should check what case this is and do proper error checking");
+                console.log("ERROR in config.js -> initConfig(). The storeResult was undefined. Should check what case this is and do proper error checking. This is for the configVarName:", configVarName);
             } else {
-                if (storeResult.v != this.get_x()) {
+                if (storeResult.v != this[getterFuncName]()) {
                     // storeResult has something other than the default, we should use what is in the store
-                    this.set_x(storeResult.v);
+                    this[setterFuncName](storeResult.v);
                 }
             }            
         }
+    },
+    storeConfigVarInStore: async function(varName, value) {
+        // Sets a value in the store with key: config{varName}, and value: value
+        // str varName: The variable name with the '_'
+        // value: The 
+        blStore.set("config"+varName, value); //TODO - error checking? How do we know if this succeeded?
     }
 
 
