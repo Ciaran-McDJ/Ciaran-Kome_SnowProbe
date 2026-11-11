@@ -99,8 +99,8 @@
         // SCRIPT FOR TESTING THINGS TEMPORARILY
         console.log("Ciaran's Test JS code is running on program start");
 
-        import {myTestConfig} from "./js/config.js"
-        myTestConfig.initConfig();
+        import {config} from "./js/config.js"
+        config.initConfig();
 
         let i = 0;
 
@@ -110,7 +110,7 @@
             i += 1;
             console.log("Test Button was pressed!");
             
-            myTestConfig.set_displayOptionalButton(!myTestConfig.get_displayOptionalButton())
+            config.set_displayOptionalButton(!config.get_displayOptionalButton())
 
             // let blStore_set = blStore.set("MyTestKey", i)
             // let blStore_get = blStore.get("MyTestKey").then(() => console.log("resultFromPromise.then()", blStore.result()))
@@ -130,7 +130,7 @@
         async function measureButtonCallback() {
             console.log("Measure Button was pressed!");
 
-            let theXInQuestion = myTestConfig.get_x()
+            let theXInQuestion = config.get_x()
             console.log("in index.html we got that x is: ", theXInQuestion)
 
             // Not doing anything for right now
