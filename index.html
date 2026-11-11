@@ -24,9 +24,10 @@
             margin-top: 10px;
         }
     </style>
+    <link rel="stylesheet" href="./css/settingsMenu.css">
 </head>
 
-<body>
+<body id="mainBody">
     <h1>BlxMinimal</h1>
 
     <div class="info"><b>Minimalistic use of 'blx.js' and 'blstore.js'</b></div>
@@ -39,6 +40,12 @@
     <button id="myTestButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Test Button</button>
     <button id="myMeasureButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Measure Button</button>
     <button id="optionalButton" style="margin-top: 15px; margin-bottom: 5px;">Ciaran's Optional Button</button>
+    <button id="openSettingsButton" style="margin-top: 15px; margin-bottom: 5px;">Open Settings Menu</button>
+
+    <div id="settingsMenu">
+        <!-- TODO - import this stuff from a different file -->
+        <h6 style="margin-top: 5px; margin-bottom: 5px;">MY TEST TEXT IN THE SETTINGS MENU</h6>
+    </div>
 
     <script type="module">
 

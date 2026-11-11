@@ -1,0 +1,15 @@
+
+
+
+
+
+/* Will likely rename this file and put other css in here. For now just testing the settings menu stuff */
+
+
+#settingsMenu {
+    display: none;
+}
+
+#settingsMenu:target {
+    display: initial;
+}

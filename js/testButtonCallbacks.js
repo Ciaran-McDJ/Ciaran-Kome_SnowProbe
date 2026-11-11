@@ -10,6 +10,8 @@ async function testButtonCallback() {
 
     config.set_distMeas_useManualEntry(!config.get_distMeas_useManualEntry())
 
+    console.log("config:", config)
+
     // let blStore_set = blStore.set("MyTestKey", i)
     // let blStore_get = blStore.get("MyTestKey").then(() => console.log("resultFromPromise.then()", blStore.result()))
     // let result = blStore.result()
@@ -51,8 +53,19 @@ async function optionalButtonCallback() {
     console.log("Optional Button was pressed!")
 
     config.set_distMeas_useRadar(!config.get_distMeas_useRadar())
+    
+}
 
-    console.log("config:", config)
+async function openSettingsButtonCallback () {
+    // TODO - will likely only open the menu, will have another button in the menu for closing it
+
+    // Toggle whether we can see the menu div or not
+    let settingsMenuHash = "#settingsMenu"
+    if (window.location.hash === settingsMenuHash) {
+        window.location.hash = "";
+    } else {
+        window.location.hash = settingsMenuHash;
+    }
 }
 
 export function linkButtonCallbacks() {
@@ -64,5 +77,11 @@ export function linkButtonCallbacks() {
 
     let optionalButton = document.getElementById("optionalButton");
     optionalButton.addEventListener("click", optionalButtonCallback);
+
+    let openSettingsButton = document.getElementById("openSettingsButton");
+    openSettingsButton.addEventListener("click", openSettingsButtonCallback);
+
+
+    
 }
 
