@@ -21,12 +21,14 @@ import {blStore} from './blStore.js'
 let optionalButton;
 
 // TODO - look up proper docstring formatting for all of this
-let configVarsToKeepInStore = ["_x", "_displayOptionalButton"];
+let configVarsToKeepInStore = ["_x", "_displayOptionalButton", "_distMeas_useRadar", "_distMeas_useManualEntry"];
 
 /* config has variables that should persist between reloads of the page, they are stored in the indexedDB and most of them can be modified in the config menu*/
 export const config = {
     _x: 1,
     _displayOptionalButton: false,
+    _distMeas_useRadar: false,
+    _distMeas_useManualEntry: true,
     // TODO - add what type x should be and some condition to throw error (acceptable range) (this is actually going to be in the html element, not a problem) - hmmm, but should I set it here so everything is in one place?
     get_x: function() {
         // console.log("debug config.js: getting x, ", this._x);
@@ -42,10 +44,11 @@ export const config = {
         return this._displayOptionalButton;
     },
     set_displayOptionalButton: async function(value) {
+        let confVarName = "_displayOptionalButton"
         // Set local variable
-        this._displayOptionalButton = value;
+        this[confVarName] = value;
         // Set variable in indexedDB
-        this.storeConfigVarInStore("_displayOptionalButton", value);
+        this.storeConfigVarInStore(confVarName, value);
         // Update the config menu box
         // TODO - implement this
         // Do necessary logic for the value change
@@ -58,6 +61,37 @@ export const config = {
         }
         
     },
+
+    get_distMeas_useRadar: function() {
+        return this._distMeas_useRadar;
+    },
+    set_distMeas_useRadar: async function(value) {
+        let confVarName = "_distMeas_useRadar"
+        // Set local variable
+        this[confVarName] = value;
+        // Set variable in indexedDB
+        this.storeConfigVarInStore(confVarName, value);
+        // Update the config menu box
+        // TODO - implement this
+        // Do necessary logic for the value change
+        // TODO - not sure if this will be neccessary  
+    },
+
+    get_distMeas_useManualEntry: function() {
+        return this._distMeas_useManualEntry;
+    },
+    set_distMeas_useManualEntry: async function(value) {
+        let confVarName = "_distMeas_useManualEntry"
+        // Set local variable
+        this[confVarName] = value;
+        // Set variable in indexedDB
+        this.storeConfigVarInStore(confVarName, value);
+        // Update the config menu box
+        // TODO - implement this
+        // Do necessary logic for the value change
+        // TODO - not sure if this will be neccessary  
+    },
+
     /* Run at start of program after html elements are made so js code has access to them*/
     getHTMLElements: function() {
         optionalButton = document.getElementById("optionalButton");
