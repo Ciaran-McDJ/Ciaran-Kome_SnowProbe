@@ -26,19 +26,20 @@ let configVarsToKeepInStore = ["_x", "_displayOptionalButton", "_distMeas_useRad
 
 /* config has variables that should persist between reloads of the page, they are stored in the indexedDB and most of them can be modified in the config menu*/
 export const config = {
-    _x: 1,
-    _displayOptionalButton: false,
+    _x: 1, //Example to show off config, this can be deleted later
+    _displayOptionalButton: false, //Example to show off config, this can be deleted later
     _distMeas_useRadar: false,
     _distMeas_useManualEntry: true,
 
-    // TODO - add what type x should be and some condition to throw error (acceptable range) (this is actually going to be in the html element, not a problem) - hmmm, but should I set it here so everything is in one place?
     get_x: function() {
         // console.log("debug config.js: getting x, ", this._x);
         return this._x;
     },
     set_x: async function(value) {
+        let confVarName = "_x";
         this._x = value;
         this.storeConfigVarInStore("_x", value);
+        this.setConfigElement(confVarName);
         // console.log("debug config.js: set x to ", x);
     },
     
@@ -46,13 +47,13 @@ export const config = {
         return this._displayOptionalButton;
     },
     set_displayOptionalButton: async function(value) {
-        let confVarName = "_displayOptionalButton"
+        let confVarName = "_displayOptionalButton";
         // Set local variable
         this[confVarName] = value;
         // Set variable in indexedDB
         this.storeConfigVarInStore(confVarName, value);
         // Update the config menu box
-        // This is an example 
+        // This is an example, it doens't have a config menu box
         // Do necessary logic for the value change
         if (this.get_displayOptionalButton() === false) {
             optionalButton.style.display = "none"; //TODO - move getElementByID to be in global scoe and have init function to set it
@@ -67,7 +68,7 @@ export const config = {
         return this._distMeas_useRadar;
     },
     set_distMeas_useRadar: async function(value) {
-        let confVarName = "_distMeas_useRadar"
+        let confVarName = "_distMeas_useRadar";
         // Set local variable
         this[confVarName] = value;
         // Set variable in indexedDB
@@ -82,7 +83,7 @@ export const config = {
         return this._distMeas_useManualEntry;
     },
     set_distMeas_useManualEntry: async function(value) {
-        let confVarName = "_distMeas_useManualEntry"
+        let confVarName = "_distMeas_useManualEntry";
         // Set local variable
         this[confVarName] = value;
         // Set variable in indexedDB
@@ -135,16 +136,6 @@ export const config = {
         }
     },
 
-    /* NOT USED - should be able to delete this. This runs setters with the values they already have to make sure the program is in the correct state, should not be necessary*/
-    // runAllSetters: function() {
-    //     for (let confVarName of configVarsToKeepInStore) {
-    //         let getterFuncName = "get"+confVarName;
-    //         let setterFuncName = "set"+confVarName;
-    //         let value = this[getterFuncName]();
-    //         this[setterFuncName](value);
-    //     }
-    // },
-
     storeConfigVarInStore: async function(varName, value) {
         // Sets a value in the store with key: config{varName}, and value: value
         // str varName: The variable name with the '_'
@@ -161,6 +152,18 @@ export const config = {
             console.log("WARNING: The config Variable, "+confVarName+" did not have a linked settings menu html element yet config.setConfigElement was called for it. Something is likely wrong")
         } else if (element.type === "checkbox") {
             element.checked = this[getterFuncName]()
+        } else if (element.type === "text") {
+            element.value = this[getterFuncName]()
         }
     }
+
+    /* NOT USED - should be able to delete this. This runs setters with the values they already have to make sure the program is in the correct state, should not be necessary*/
+    // runAllSetters: function() {
+    //     for (let confVarName of configVarsToKeepInStore) {
+    //         let getterFuncName = "get"+confVarName;
+    //         let setterFuncName = "set"+confVarName;
+    //         let value = this[getterFuncName]();
+    //         this[setterFuncName](value);
+    //     }
+    // }
 }
