@@ -44,16 +44,21 @@
 
     <div id="settingsMenu">
         <!-- TODO - import this stuff from a different file -->
-        <button id="toggleDistManualMeasButton" style="margin-top: 15px; margin-bottom: 5px;">TODO - this shoudn't be a button</button>
+        <p><b>Settings Menu</b></p>
+        <button id="closeSettingsButton" style="margin-top: 15px; margin-bottom: 5px;">Close Settings</button>
         <p>
-            <!-- NOTE: Need to learn more about css to make this pretty. Not sure if putting this in a paragraph block is helpful -->
+            <!-- NOTE: Currently keeping all of these up to date with the config by finding html elements and using their id. id must be the name of the variable they are changing -->
+            <input type="text" id="_x" name="_x" pattern="[a-z]{4,8}">
+            <label for="_x">Type in to change x (all lowercase, 4-8 characters)</label>
+        </p>
+
+        <p>
             <input type="checkbox" id="_distMeas_useRadar" name="_distMeas_useRadar" value="yes">
             <label for="_distMeas_useRadar">Use Radar Measurement</label>
 
             <input type="checkbox" id="_distMeas_useManualEntry" name="_distMeas_useManualEntry" value="yes">
             <label for="_distMeas_useManualEntry">Use Manual Entry Measurement</label>
         </p>
-        <h6 style="margin-top: 5px; margin-bottom: 5px;">MY TEST TEXT IN THE SETTINGS MENU</h6>
     </div>
 
     <script type="module">
@@ -119,7 +124,10 @@
         config.initConfig();
 
         import {linkButtonCallbacks} from "./js/testButtonCallbacks.js"
-        linkButtonCallbacks()
+        linkButtonCallbacks();
+
+        import {linkSettingsMenuCallbacks} from "./js/settingsMenu.js"
+        linkSettingsMenuCallbacks();
 
 
     </script>

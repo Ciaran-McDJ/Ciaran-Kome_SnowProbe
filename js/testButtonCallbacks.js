@@ -8,7 +8,7 @@ async function testButtonCallback() {
     
     config.set_displayOptionalButton(!config.get_displayOptionalButton())
 
-    config.set_distMeas_useManualEntry(!config.get_distMeas_useManualEntry())
+    // config.set_distMeas_useManualEntry(!config.get_distMeas_useManualEntry())
 
     console.log("config:", config)
 
@@ -57,15 +57,7 @@ async function optionalButtonCallback() {
 }
 
 async function openSettingsButtonCallback () {
-    // TODO - will likely only open the menu, will have another button in the menu for closing it
-
-    // Toggle whether we can see the menu div or not
-    let settingsMenuHash = "#settingsMenu"
-    if (window.location.hash === settingsMenuHash) {
-        window.location.hash = "";
-    } else {
-        window.location.hash = settingsMenuHash;
-    }
+    window.location.hash = "#settingsMenu";
 }
 
 export function linkButtonCallbacks() {
@@ -81,7 +73,5 @@ export function linkButtonCallbacks() {
     let openSettingsButton = document.getElementById("openSettingsButton");
     openSettingsButton.addEventListener("click", openSettingsButtonCallback);
 
-
-    
 }
 
