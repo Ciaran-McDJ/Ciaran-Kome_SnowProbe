@@ -2,24 +2,21 @@
 /* BlxDashboard service worker - no external runtime or build tools required. */
 
 const CACHE_PREFIX = 'blxdash-static-';
-const CACHE_NAME = `${CACHE_PREFIX}2026-08-28`;
+const CACHE_NAME = `${CACHE_PREFIX}2026-11-17`;
 
 const PRECACHE_URLS = [
     './index.html',
     './manifest.webmanifest',
     './favicon.ico',
-    './css/jodash.css',
-    './css/qrscanner.css',
-    './js/blGraphics.js',
+    './css/settingsMenu.css',
     './js/blStore.js',
     './js/blx.js',
-    './js/blxdash.js',
+    './js/config.js',
     './js/FileSaver.js',
-    './js/intmain_i18n.js',
-    './js/jodash.js',
-    './js/params.js',
-    './js/qrscanner.js',
-    './js/xtract_edt.js',
+    './js/settingsMenu.js',
+    './js/state.js',
+    './js/testButtonCallbacks.js',
+    './js/usefulFuncs.js',
     './static/favicon.ico',
     './static/favicon.svg',
     './static/icons/bootstrap-icons.min.css',
