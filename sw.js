@@ -1,7 +1,7 @@
 // Copied from https://github.com/joembedded/ltx_ble_demo
 /* BlxDashboard service worker - no external runtime or build tools required. */
 
-const CACHE_PREFIX = 'blxdash-static-';
+const CACHE_PREFIX = 'snowprobe-static-';
 const CACHE_NAME = `${CACHE_PREFIX}2026-11-17`;
 
 const PRECACHE_URLS = [
