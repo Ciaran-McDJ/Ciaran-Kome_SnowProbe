@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="manifest" href="manifest.webmanifest">
+
+    
     <title>BlxMinimal</title>
     <style>
         body {
@@ -143,6 +147,38 @@
 
 
     </script>
+
+    <!-- // Copied from https://github.com/joembedded/ltx_ble_demo -->
+    <!-- Zuallererst Debug und Service Worker -->
+    <script>
+
+        window.jdDebug = 0 // PWA-global - DebugLevel: 0:Run, 1-2:Debug: 1:LocalhostDev,NoQRScannerPolyfill, 2: Debug,ScannerPolyfill
+        if (location.hostname == 'localhost' || location.hostname == '127.0.0.1') window.jdDebug = 1 // DEBUG-local
+
+        function installServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js').then(function (reg) {
+                    console.log("ServiceWorker installed")
+                }).catch(function (error) {
+                    console.log("ERROR: ServiceWorker: " + error)
+                })
+            }
+        }
+        // Unregister Service Workers (run manually in Console)
+        function removeServiceWorker() {
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                for (let registration of registrations) {
+                    registration.unregister()
+                }
+            })
+            console.log("ServiceWorker removed")
+        }
+
+        // Service Worker auch unter XAMPP/localhost registrieren, damit die
+        // Offline-Funktion dort getestet werden kann.
+        installServiceWorker()
+    </script>
+
 </body>
 
 </html>
