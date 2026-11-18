@@ -1,0 +1,1 @@
+Ciaran Note: Copied everything into here from blxdashboard. Trying to change as few things as possible while making service worker and manifest file. Will want to modify these to our icons later

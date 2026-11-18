@@ -1,0 +1,15 @@
+
+
+// This particular configuration was recommended by AI. This helps VSCode with reading javascript
+// NOTE: Can modify typescript checking flags and move towards typing if we move toward typescript
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "target": "ES6",
+    "checkJs": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "skipLibCheck": true
+  }
+}

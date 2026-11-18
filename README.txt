@@ -32,3 +32,9 @@ Software Phase 2.1 (base building blocks to ensure all technical tasks can be do
 
 Software Phase 2.2:
 Put all the parts of Software Phase 2.1 together, should then have a functional minimum viable product
+
+
+
+
+
+NOTE: manifest.webmanifest and sw.js are copied from blxdashboard (https://github.com/joembedded/ltx_ble_demo) with minimal modifications. Will want to modify them more and make our own icon and such

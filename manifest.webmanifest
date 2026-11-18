@@ -1,0 +1,42 @@
+
+{
+	"lang": "en-EN",
+	"name": "SnowProbeController",
+	"short-name": "SnowProbe",
+	"description": "Controller for Snow Probe BLE device",
+	"background_color": "#808080",
+	"theme_color": "#77ceff",
+	"display": "standalone",
+	"orientation": "any",
+	"scope": "./",
+	"start_url": "./",
+	"id": "snowprobe001",
+	"icons": [
+		{
+			"src": "./static/preview512.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "maskable"
+		},
+		{
+			"src": "./static/preview512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "./static/preview512.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"label": "Preview512x512"
+		},
+		{
+			"src": "./static/preview1024x768.png",
+			"sizes": "1024x768",
+			"type": "image/png",
+			"form_factor": "wide",
+			"label": "Preview1024x768"
+		}
+	]
+}
